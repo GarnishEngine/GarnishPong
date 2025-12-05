@@ -49,3 +49,5 @@ CMakeUserPresets.json
 .cache
 build/
 GarnishPong
+.vscode
+CMakePresets.json
