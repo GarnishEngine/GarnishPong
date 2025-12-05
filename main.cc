@@ -4,7 +4,7 @@
 
 int main() {
     garnish::App::CreateInfo createInfo{ };
-    createInfo.assetPath = "3rdParty/GarnishEngine/";
+    createInfo.assetPath = "../3rdParty/GarnishEngine/";
     garnish::App app{ createInfo };
 
     std::cout << "Pong" << std::endl;
