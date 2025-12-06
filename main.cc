@@ -11,13 +11,23 @@ int main() {
     createInfo.assetPath = engineAssetPath;
     garnish::App app{ createInfo };
 
-    uint32_t meshHandle = app.get_render_device()->setup_mesh(createUnitCubeGeometry());
+    uint32_t unitCube = app.get_render_device()->setup_mesh(createUnitCubeGeometry());
 
     // TODO need to sort out these paths
-    uint32_t texHandle = app.get_render_device()->load_texture(engineAssetPath + "../../assets/white-square.png");
+    uint32_t whiteTexture = app.get_render_device()->load_texture(engineAssetPath + "../../assets/white-square.png");
 
-    auto vikingRoom = app.get_controller().create_entity_with_components(
-        garnish::Renderable{.meshHandle = meshHandle, .texHandle = texHandle}
+    auto ball = app.get_controller().create_entity_with_components(
+        garnish::Renderable{.meshHandle = unitCube, .texHandle = whiteTexture}
+    );
+
+    auto leftPaddle = app.get_controller().create_entity_with_components(
+        garnish::Renderable{.meshHandle = unitCube, .texHandle = whiteTexture},
+        garnish::Transform{ .position = glm::vec3{ -2.0f, 0.0f, 0.0f } }
+    );
+
+    auto rightPaddle = app.get_controller().create_entity_with_components(
+        garnish::Renderable{.meshHandle = unitCube, .texHandle = whiteTexture},
+        garnish::Transform{ .position = glm::vec3{ 2.0f, 0.0f, 0.0f } }
     );
 
     app.get_controller().create_entity_with_components(garnish::Camera());
