@@ -6,16 +6,15 @@
 #include <geometry.hpp>
 
 int main() {
-    std::string assetPath = "../3rdParty/GarnishEngine/";
+    std::string engineAssetPath = "../3rdParty/GarnishEngine/";
     garnish::App::CreateInfo createInfo{ };
-    createInfo.assetPath = assetPath;
+    createInfo.assetPath = engineAssetPath;
     garnish::App app{ createInfo };
 
-    // TODO asset path should be automatically added here (maybe)
     uint32_t meshHandle = app.get_render_device()->setup_mesh(createUnitCubeGeometry());
 
-    // TODO asset path should be automatically added here (maybe)
-    uint32_t texHandle = app.get_render_device()->load_texture(assetPath + "Textures/viking_room.png");
+    // TODO need to sort out these paths
+    uint32_t texHandle = app.get_render_device()->load_texture(engineAssetPath + "../../assets/white-square.png");
 
     auto vikingRoom = app.get_controller().create_entity_with_components(
         garnish::Renderable{.meshHandle = meshHandle, .texHandle = texHandle}
