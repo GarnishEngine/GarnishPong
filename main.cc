@@ -95,9 +95,46 @@ int main() {
         RightPaddle{ },
         garnish::Renderable{.meshHandle = unitCube, .texHandle = whiteTexture},
         garnish::Transform{ .position = glm::vec3{ 8.0f, 0.0f, 0.0f } },
-        garnish::RigidBody{ .velocity = glm::vec3{ 0.0f, 0.0f, 0.0f }, .acceleration = glm::vec3{ 0.0f }, .inv_mass = 0.000001f, .dampening = 1.0f },
+        garnish::RigidBody{ .velocity = glm::vec3{ 0.0f, 0.0f, 0.0f }, .acceleration = glm::vec3{ 0.0f }, .inv_mass = 0.000001f, .dampening = 0.1f },
         garnish::SphereCollider{ .radius = 0.5f, .restitutionCoefficient = 1.0f }
     );
+
+    int leftSide = -11;
+    int rightSide = 11;
+    int top = 8;
+    int bottom = -8;
+
+    for (int x = leftSide; x < rightSide; ++x) {
+        app.get_controller().create_entity_with_components(
+            garnish::Renderable{.meshHandle = unitCube, .texHandle = whiteTexture},
+            garnish::Transform{ .position = glm::vec3{ (float)x, (float)top, 0.0f } },
+            garnish::RigidBody{ .velocity = glm::vec3{ 0.0f, 0.0f, 0.0f }, .acceleration = glm::vec3{ 0.0f }, .inv_mass = 0.00000001f, .dampening = 0.1f },
+            garnish::SphereCollider{ .radius = 0.4f, .restitutionCoefficient = 1.0f }
+        );
+
+        app.get_controller().create_entity_with_components(
+            garnish::Renderable{.meshHandle = unitCube, .texHandle = whiteTexture},
+            garnish::Transform{ .position = glm::vec3{ (float)x, (float)bottom, 0.0f } },
+            garnish::RigidBody{ .velocity = glm::vec3{ 0.0f, 0.0f, 0.0f }, .acceleration = glm::vec3{ 0.0f }, .inv_mass = 0.00000001f, .dampening = 0.1f },
+            garnish::SphereCollider{ .radius = 0.4f, .restitutionCoefficient = 1.0f }
+        );
+    }
+
+    for (int y = bottom; y < top; ++y) {
+        app.get_controller().create_entity_with_components(
+            garnish::Renderable{.meshHandle = unitCube, .texHandle = whiteTexture},
+            garnish::Transform{ .position = glm::vec3{ (float)leftSide - 0.5f, (float)y, 0.0f } },
+            garnish::RigidBody{ .velocity = glm::vec3{ 0.0f, 0.0f, 0.0f }, .acceleration = glm::vec3{ 0.0f }, .inv_mass = 0.00000001f, .dampening = 0.1f },
+            garnish::SphereCollider{ .radius = 0.4f, .restitutionCoefficient = 1.0f }
+        );
+
+        app.get_controller().create_entity_with_components(
+            garnish::Renderable{.meshHandle = unitCube, .texHandle = whiteTexture},
+            garnish::Transform{ .position = glm::vec3{ (float)rightSide + 0.5f, (float)y, 0.0f } },
+            garnish::RigidBody{ .velocity = glm::vec3{ 0.0f, 0.0f, 0.0f }, .acceleration = glm::vec3{ 0.0f }, .inv_mass = 0.00000001f, .dampening = 0.1f },
+            garnish::SphereCollider{ .radius = 0.4f, .restitutionCoefficient = 1.0f }
+        );
+    }
 
     garnish::Camera cam{ };
     cam.position.z = 15.0f;
